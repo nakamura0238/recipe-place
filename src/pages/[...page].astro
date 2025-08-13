@@ -1,0 +1,44 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions } from "astro";
+import Card from "@/components/Card.astro";
+import Pagenation from "@/components/Pagenation.astro";
+import CardContainer from "@/components/CardContainer.astro";
+import TagContainer from "@/components/TagContainer.astro";
+
+// 1ページに表示する件数を設定
+export const resipesPerPage = 8;
+
+// getStaticPaths()で動的なルートを設定
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  // 投稿を呼び出し
+  const recipes = await getCollection("recipe");
+
+  // 並び替えた投稿の配列から、1ページにX記事づつ入るようにページを生成
+  return paginate(recipes, { pageSize: resipesPerPage });
+}
+
+const { page } = Astro.props;
+---
+
+<Layout>
+  <CardContainer>
+    {
+      page.data.map((recipe) => {
+        return (
+          <Card
+            id={recipe.id}
+            title={recipe.data.title}
+            description={recipe.data.description}
+            tags={recipe.data.tags}
+          />
+        );
+      })
+    }
+  </CardContainer>
+
+  <Pagenation page={page} />
+
+  <TagContainer />
+</Layout>
