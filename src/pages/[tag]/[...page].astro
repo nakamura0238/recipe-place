@@ -1,0 +1,74 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import type { GetStaticPathsOptions } from "astro";
+import Card from "@/components/Card.astro";
+import Pagenation from "@/components/Pagenation.astro";
+import CardContainer from "@/components/CardContainer.astro";
+import TagContainer from "@/components/TagContainer.astro";
+
+// 1ページに表示する件数を設定
+export const resipesPerPage = 8;
+
+// getStaticPaths()で動的なルートを設定
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  // 投稿を呼び出し
+  const recipes = await getCollection("recipe");
+
+  // タグの一覧を取得
+  const tags = [
+    ...new Set(
+      recipes
+        .flatMap((recipe) => recipe.data.tags)
+        .filter(
+          (tag): tag is Exclude<typeof tag, undefined> => tag !== undefined
+        )
+    ),
+  ];
+
+  // 各タグごとにページを生成
+  // paginate関数を使用して、各タグに対するレシピのページ
+  return tags.flatMap((tag) => {
+    const filteredRecipes = recipes.filter((recipe) =>
+      recipe.data.tags.includes(tag)
+    );
+    return paginate(filteredRecipes, {
+      params: { tag },
+      pageSize: resipesPerPage,
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { tag } = Astro.params;
+---
+
+<Layout>
+  <h1>"{tag}" のレシピ一覧</h1>
+  <CardContainer>
+    {
+      page.data.map((recipe) => {
+        return (
+          <Card
+            id={recipe.id}
+            title={recipe.data.title}
+            description={recipe.data.description}
+            tags={recipe.data.tags}
+          />
+        );
+      })
+    }
+  </CardContainer>
+
+  <Pagenation page={page} />
+
+  <TagContainer />
+</Layout>
+
+<style>
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+</style>
