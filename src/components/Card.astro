@@ -1,0 +1,64 @@
+---
+import Tag from "@/components/Tag.astro";
+
+type Props = {
+  id: string;
+  title: string;
+  description: string;
+  tags: string[];
+};
+
+const { id, title, description, tags } = Astro.props;
+---
+
+<a href=`/recipe/${id}` class="card">
+  <h2 class="title">{title}</h2>
+  <div class="tags">
+    {tags.map((tag) => <Tag tagName={tag} />)}
+  </div>
+  <p class="description">{description}</p>
+</a>
+
+<style>
+  .card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    text-decoration: none;
+    box-shadow: unset;
+    transition: 0.3s;
+  }
+
+  .card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 5px 5px 0px var(--color-border);
+  }
+
+  .title,
+  .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .title {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+</style>
