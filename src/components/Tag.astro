@@ -1,0 +1,38 @@
+---
+type Props = {
+  tagName: string;
+  isLink?: boolean;
+};
+
+const { tagName, isLink } = Astro.props;
+---
+
+{
+  isLink ? (
+    <a class="tag" href={`/${tagName}`}>
+      {tagName}
+    </a>
+  ) : (
+    <span class="tag">{tagName}</span>
+  )
+}
+
+<style>
+  .tag {
+    font-size: 1rem;
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-bg);
+    border-radius: 3px;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    box-shadow: unset;
+    transition: 0.3s;
+  }
+
+  a {
+    &:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 2px 2px 0px var(--color-border);
+    }
+  }
+</style>
