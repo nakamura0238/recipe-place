@@ -1,0 +1,33 @@
+---
+type Props = {
+  tagName: string;
+  count: number;
+};
+
+const { tagName, count } = Astro.props;
+---
+
+<a class="tag" href={`/${tagName}`}>
+  {tagName} ({count})
+</a>
+
+<style>
+  .tag {
+    font-size: 1rem;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--color-bg);
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+
+    box-shadow: unset;
+    transition: 0.3s;
+  }
+
+  a {
+    &:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0px var(--color-border);
+    }
+  }
+</style>
