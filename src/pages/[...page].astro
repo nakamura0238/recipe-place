@@ -25,16 +25,20 @@ const { page } = Astro.props;
 <Layout>
   <CardContainer>
     {
-      page.data.map((recipe) => {
-        return (
-          <Card
-            id={recipe.id}
-            title={recipe.data.title}
-            description={recipe.data.description}
-            tags={recipe.data.tags}
-          />
-        );
-      })
+      page.data.length !== 0 ? (
+        page.data.map((recipe) => {
+          return (
+            <Card
+              id={recipe.id}
+              title={recipe.data.title}
+              description={recipe.data.description}
+              tags={recipe.data.tags}
+            />
+          );
+        })
+      ) : (
+        <p>レシピが見つかりませんでした</p>
+      )
     }
   </CardContainer>
 
