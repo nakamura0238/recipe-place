@@ -4,7 +4,7 @@ root: './src/content/recipe'
 output: '.'
 ignore: []
 questions:
-  value: 'Please enter any text.'
+  value: 'レシピ名を入力してください.'
 ---
 
 # `{{ inputs.value }}.mdx`
