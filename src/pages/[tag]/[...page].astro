@@ -21,8 +21,8 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
       recipes
         .flatMap((recipe) => recipe.data.tags)
         .filter(
-          (tag): tag is Exclude<typeof tag, undefined> => tag !== undefined
-        )
+          (tag): tag is Exclude<typeof tag, undefined> => tag !== undefined,
+        ),
     ),
   ];
 
@@ -30,7 +30,7 @@ export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   // paginate関数を使用して、各タグに対するレシピのページ
   return tags.flatMap((tag) => {
     const filteredRecipes = recipes.filter((recipe) =>
-      recipe.data.tags.includes(tag)
+      recipe.data.tags.includes(tag),
     );
     return paginate(filteredRecipes, {
       params: { tag },

@@ -8,7 +8,9 @@ const tags = [
   ...new Set(
     recipes
       .flatMap((recipe) => recipe.data.tags)
-      .filter((tag): tag is Exclude<typeof tag, undefined> => tag !== undefined)
+      .filter(
+        (tag): tag is Exclude<typeof tag, undefined> => tag !== undefined,
+      ),
   ),
 ];
 ---
