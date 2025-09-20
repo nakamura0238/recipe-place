@@ -1,0 +1,26 @@
+{
+  "singleQuote": false,
+  "trailingComma": "all",
+  "useTabs": false,
+  "plugins": ["prettier-plugin-astro", "prettier-plugin-organize-imports"],
+    "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "printWidth": 360
+      }
+    },
+    {
+      "files": ["*.css", "*.scss"],
+      "options": {
+        "singleQuote": false
+      }
+    },
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
+}
