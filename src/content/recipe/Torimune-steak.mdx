@@ -1,0 +1,43 @@
+---
+# 料理名
+title: 鶏むね肉ステーキ
+# 説明やコメント
+description: じっくり火を通す
+# レシピを分類するためのタグ　例：["卵", "簡単"]
+tags: ["鶏むね肉"]
+---
+
+import Tag from "@/components/Tag.astro";
+
+# {frontmatter.title}
+
+<div class="tagContainer">
+  {frontmatter.tags.map((tag, i) => (
+    <Tag key={`${tag}-${i}`} tagName={tag} isLink />
+  ))}
+</div>
+
+<div class="description">{frontmatter.description}</div>
+
+## 材料
+
+### 食材
+
+| 材料     | 分量 |
+| -------- | ---- |
+| 鶏むね肉 | 1枚  |
+
+### 調味料
+
+| 材料     | 分量  |
+| -------- | ----- |
+| 塩胡椒   | 適量  |
+| にんにく | 1かけ |
+
+## 手順
+
+1. 鶏むね肉の皮の無い面に塩胡椒を振る
+2. フライパンには油を敷かず、皮の面を下にして蓋をしないまま弱火で火を通す
+3. 鶏むね肉は全く動かさないこと
+4. 油が出てきたらニンニクやハーブなどを入れ香りを移す
+5. 30分ほど火を通したら、裏返し10分ほど火を通す
